@@ -25,8 +25,18 @@ typedef struct {
   char brand[48];
 } BatteryCharacter;
 
-void checkAndAlert(
-  AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC);
+typedef struct
+{
+	
+	int LowerLimit;
+	int UpperLimit;
+	CoolingType coolingType;
+}CoolingInfoType;
+
+void checkAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC);
 
 void sendToController(BreachType breachType);
 void sendToEmail(BreachType breachType);
+void TooLowmessage (const char* recepient);
+void Toohighmessage (const char* recepient);
+void NormalMessage (const char* recepient);
