@@ -1,7 +1,7 @@
 #include "typewise-alert.h"
 #include <stdio.h>
 
-BatteryBreachLimit Batterylimit[3] = {{0,35,PASSIVE_COOLING},{0,45,HI_ACTIVE_COOLING},{0,40,MED_ACTIVE_COOLING}};
+CoolingInfoType CoolingInfo[3] = {{0,35,PASSIVE_COOLING},{0,45,HI_ACTIVE_COOLING},{0,40,MED_ACTIVE_COOLING}};
 void (*TargetType[])(BreachType) = {sendToController,sendToEmail};
 void (*Email[])(const char*) ={NormalMessage,TooLowmessage,Toohighmessage};
 
@@ -17,7 +17,7 @@ BreachType inferBreach(double value, double lowerLimit, double upperLimit) {
 
 BreachType classifyTemperatureBreach(CoolingType coolingType, double temperatureInC) 
 {	
-  return inferBreach(temperatureInC, BatteryLimit[coolingType].lowerLimit, BatteryLimit[coolingType].upperLimit);
+  return inferBreach(temperatureInC, CoolingInfo[coolingType].lowerLimit, CoolingInfo[coolingType].upperLimit);
 }
 
 void checkAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC) 
