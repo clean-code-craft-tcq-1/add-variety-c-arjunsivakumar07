@@ -30,5 +30,5 @@ TEST_CASE("check and alert3") {
 TEST_CASE("Infers If Sending to Console is Working") {
   BatteryCharacter batteryChar;
   batteryChar.coolingType = MED_ACTIVE_COOLING;
-  REQUIRE(checkAndAlert(TO_CONSOLE, batterychar, 30 ) == PASS);
+  REQUIRE(checkAndAlert(TO_CONSOLE, batteryChar, 30 ) == PASS);
 }
