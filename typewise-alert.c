@@ -23,7 +23,7 @@ BreachType classifyTemperatureBreach(CoolingType coolingType, double temperature
 InfoType checkAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC) 
 {
 	InfoType Value = FAIL;
-  BreachType breachType = classifyTemperatureBreach(batteryChar.coolingType, temperatureInC);
+	BreachType breachType = classifyTemperatureBreach(batteryChar.coolingType, temperatureInC);
 	Value = (*TargetType[alertTarget])(breachType);
 	return Value;
 }
@@ -37,21 +37,21 @@ InfoType sendToController(BreachType breachType) {
 InfoType TooLowmessage (const char* recepient)
 {
 	printf("To: %s\n", recepient);
-    printf("!! ALERT !! temperature is too low\n");
+	printf("!! ALERT !! temperature is too low\n");
 	return PASS;
 }
 
 InfoType Toohighmessage (const char* recepient)
 {
 	printf("To: %s\n", recepient);
-    printf("!! ALERT !! temperature is too high\n");
+	printf("!! ALERT !! temperature is too high\n");
 	return PASS;
 }
 
 InfoType NormalMessage (const char* recepient)
 {
 	printf("To: %s\n", recepient);
-    printf(" ! OKAY ! temperature is normal\n");
+	printf(" ! OKAY ! temperature is normal\n");
 	return PASS;
 }
 	
