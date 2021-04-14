@@ -58,6 +58,6 @@ InfoType NormalMessage (const char* recepient)
 
 InfoType sendToEmail(BreachType breachType) {
   const char* recepient = "a.b@c.com";
-  (*Email[breachType])(recepient);
-  return PASS;
+  return(*Email[breachType])(recepient);
+
 }
