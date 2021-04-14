@@ -27,8 +27,20 @@ TEST_CASE("check and alert3") {
   batteryChar.coolingType = PASSIVE_COOLING;
   REQUIRE(checkAndAlert(TO_EMAIL, batteryChar, -1)==PASS);
 }
-TEST_CASE("Infers If Sending to Console is Working") {
+TEST_CASE("check and alert4") {
   BatteryCharacter batteryChar;
   batteryChar.coolingType = MED_ACTIVE_COOLING;
   REQUIRE(checkAndAlert(TO_CONSOLE, batteryChar, 30 ) == PASS);
+}
+
+TEST_CASE("check and alert5") {
+  BatteryCharacter batteryChar;
+  batteryChar.coolingType = MED_ACTIVE_COOLING;
+  REQUIRE(sendToConsole(TOO_LOW) == PASS);
+  REQUIRE(sendToEmail(TOO_LOW) == PASS);
+}
+TEST_CASE("Check and alert6")
+{
+  REQUIRE(sendToConsole(TOO_HIGH) == PASS);	
+  REQUIRE(sendToEmail(TOO_HIGH) == PASS);
 }
