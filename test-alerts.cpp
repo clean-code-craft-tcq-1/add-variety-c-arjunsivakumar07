@@ -14,11 +14,16 @@ TEST_CASE("Classify temperature") {
 TEST_CASE("check and alert") {
   BatteryCharacter batteryChar;
   batteryChar.coolingType = HI_ACTIVE_COOLING;
-  checkAndAlert(TO_EMAIL, batteryChar, 50);
+  REQUIRE(checkAndAlert(TO_EMAIL, batteryChar, 50) == PASS);
 }
 
 TEST_CASE("check and alert2") {
   BatteryCharacter batteryChar;
   batteryChar.coolingType = MED_ACTIVE_COOLING;
-  checkAndAlert(TO_CONTROLLER, batteryChar, -1);
+  REQUIRE(checkAndAlert(TO_CONTROLLER, batteryChar, -1) == PASS);
+}
+TEST_CASE("check and alert3") {
+  BatteryCharacter batteryChar;
+  batteryChar.coolingType = PASSIVE_COOLING;
+  REQUIRE(checkAndAlert(TO_EMAIL, batteryChar, -1)==PASS);
 }
