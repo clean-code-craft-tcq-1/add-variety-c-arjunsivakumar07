@@ -30,6 +30,7 @@ typedef enum{
 	FAIL,
 	PASS
 } InfoType;
+
 typedef struct
 {
 	
