@@ -25,7 +25,7 @@ InfoType checkAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar, do
 	InfoType Value = FAIL;
   BreachType breachType = classifyTemperatureBreach(batteryChar.coolingType, temperatureInC);
 	Value = (*TargetType[alertTarget])(breachType);
-	return value;
+	return Value;
 }
   
 InfoType sendToController(BreachType breachType) {
