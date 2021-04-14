@@ -2,8 +2,8 @@
 #include <stdio.h>
 
 CoolingInfoType CoolingInfo[3] = {{0,35,PASSIVE_COOLING},{0,45,HI_ACTIVE_COOLING},{0,40,MED_ACTIVE_COOLING}};
-void (*TargetType[])(BreachType) = {sendToController,sendToEmail};
-void (*Email[])(const char*) ={NormalMessage,TooLowmessage,Toohighmessage};
+InfoType (*TargetType[])(BreachType) = {sendToController,sendToEmail,sendToConsole};
+InfoType (*Email[])(const char*) ={NormalMessage,TooLowmessage,Toohighmessage};
 
 BreachType inferBreach(double value, double lowerLimit, double upperLimit) {
   if(value < lowerLimit) {
@@ -20,37 +20,44 @@ BreachType classifyTemperatureBreach(CoolingType coolingType, double temperature
   return inferBreach(temperatureInC, CoolingInfo[coolingType].LowerLimit, CoolingInfo[coolingType].UpperLimit);
 }
 
-void checkAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC) 
+InfoType checkAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC) 
 {
+	InfoType Value = FAIL;
   BreachType breachType = classifyTemperatureBreach(batteryChar.coolingType, temperatureInC);
-  (*TargetType[alertTarget])(breachType);
+	Value = (*TargetType[alertTarget])(breachType);
+	return value;
 }
   
-void sendToController(BreachType breachType) {
+InfoType sendToController(BreachType breachType) {
   const unsigned short header = 0xfeed;
   printf("%x : %x\n", header, breachType);
+  return PASS;
 }
 
-void TooLowmessage (const char* recepient)
+InfoType TooLowmessage (const char* recepient)
 {
 	printf("To: %s\n", recepient);
     printf("!! ALERT !! temperature is too low\n");
+	return PASS;
 }
 
-void Toohighmessage (const char* recepient)
+InfoType Toohighmessage (const char* recepient)
 {
 	printf("To: %s\n", recepient);
     printf("!! ALERT !! temperature is too high\n");
+	return PASS;
 }
 
-void NormalMessage (const char* recepient)
+InfoType NormalMessage (const char* recepient)
 {
 	printf("To: %s\n", recepient);
     printf(" ! OKAY ! temperature is normal\n");
+	return PASS;
 }
 	
 
-void sendToEmail(BreachType breachType) {
+InfoType sendToEmail(BreachType breachType) {
   const char* recepient = "a.b@c.com";
   (*Email[breachType])(recepient);
+  return PASS;
 }
